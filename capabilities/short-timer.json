@@ -1,0 +1,11 @@
+{
+  "id": "short-timer",
+  "version": "0.1.0",
+  "name": "十秒计时样例",
+  "description": "启动后等待十秒，再生成结束提示事件；实际声音输出取决于 Agent 的语音适配。",
+  "fields": [],
+  "steps": [
+    {"kind": "timer", "text": "十秒计时开始。", "seconds": 10},
+    {"kind": "say", "text": "十秒到了。"}
+  ]
+}

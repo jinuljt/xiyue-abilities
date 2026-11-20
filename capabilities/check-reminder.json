@@ -1,0 +1,13 @@
+{
+  "id": "check-reminder",
+  "version": "0.1.0",
+  "name": "确认式提醒样例",
+  "description": "启动时提示提醒内容并等待确认。提醒时间和重复规则由 Agent 的计划单独配置，不属于能力包。",
+  "fields": [
+    {"key": "content", "label": "提醒内容", "kind": "text", "required": true}
+  ],
+  "steps": [
+    {"kind": "confirm", "text": "提醒：{{content}}。处理后请确认。"},
+    {"kind": "say", "text": "已确认处理：{{content}}。"}
+  ]
+}

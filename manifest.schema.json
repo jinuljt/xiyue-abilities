@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "喜悦声明式能力 v0.2",
+  "title": "喜悦声明式能力包（当前结构）",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -19,7 +19,8 @@
     "version": {
       "type": "string",
       "minLength": 1,
-      "maxLength": 32
+      "maxLength": 32,
+      "description": "作者声明的内容版本，建议使用语义化版本；当前 Agent 不比较、自动升级或解析版本。"
     },
     "name": {
       "type": "string",
@@ -151,5 +152,6 @@
         ]
       }
     }
-  }
+  },
+  "description": "仅支持 say、confirm、timer；version 是能力内容版本，不是协议版本。启用状态、配置、权限和任务状态不属于包。Agent 额外按 UTF-8 字节限制字符串长度。"
 }
