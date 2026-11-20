@@ -1,0 +1,12 @@
+{
+  "id": "stretch-guide",
+  "version": "0.1.0",
+  "name": "起身休息",
+  "description": "一个轻量的分步活动提示，可以手动启动，也能安排工作日定时执行。",
+  "fields": [],
+  "steps": [
+    {"kind": "confirm", "text": "方便的话，先放下手头的事，起身活动。准备好了请确认。"},
+    {"kind": "timer", "text": "给自己一分钟，轻松走动一下。", "seconds": 60},
+    {"kind": "say", "text": "一分钟到了，按自己的节奏继续今天的事情吧。"}
+  ]
+}

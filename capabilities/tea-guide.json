@@ -1,0 +1,15 @@
+{
+  "id": "tea-guide",
+  "version": "0.1.0",
+  "name": "泡茶小助手",
+  "description": "展示如何用同一套框架实现等待确认、计时和下一步。按实际操作确认后才开始计时。",
+  "fields": [
+    {"key": "tea", "label": "茶的名称", "kind": "text", "required": true, "default": "你喜欢的茶"}
+  ],
+  "steps": [
+    {"kind": "confirm", "text": "准备好{{tea}}和合适温度的水。开始浸泡时，请确认，我会计时三分钟。"},
+    {"kind": "timer", "text": "三分钟浸泡计时已开始。", "seconds": 180},
+    {"kind": "confirm", "text": "浸泡时间到了，请按茶叶需要出汤。处理好后告诉我。"},
+    {"kind": "say", "text": "{{tea}}准备好了，慢慢享用。"}
+  ]
+}
