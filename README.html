@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>喜悦 Voice · 能力库</title>
 <style>body{font:16px/1.8 system-ui,-apple-system,"PingFang SC",sans-serif;color:#29352d;background:#f7f8f3;margin:0}main{max-width:1000px;margin:auto;padding:36px 24px 60px}h1,h2{line-height:1.4}h2{margin-top:34px}a{color:#34644d}table{border-collapse:collapse;width:100%;background:white;font-size:14px}th,td{text-align:left;border:1px solid #dce3d9;padding:10px;vertical-align:top}th{background:#eaf0e5}code,pre{font-family:ui-monospace,monospace;font-size:13px}pre{padding:18px;background:#263b2e;color:#eef4e7;border-radius:9px;overflow:auto}.note{padding:17px 22px;background:#eef2e6;border-left:4px solid #76976a}li{margin:7px 0}footer{margin-top:40px;color:#5d6c59;font-size:13px}@media(max-width:650px){main{padding:24px 14px}td,th{padding:7px}h1{font-size:28px}}</style></head>
-<body><main><header><p>XIYUE · 喜悦 · 2026-11-20</p><h1>喜悦 Voice · 能力库</h1><p class="note">可独立交付：四个 JSON 样例、能力包结构规范、离线校验器与文字预览。只需要 Python 3.9+ 标准库。预览不运行 Agent、不联网、不产生声音、不写任务状态。音箱播报和语音确认尚须由 Agent 接入并通过设备验收。</p></header>
+<body><main><header><p>XIYUE · 喜悦 · 2026-11-20</p><h1>喜悦 Voice · 能力库</h1><p class="note">可独立交付：五个 JSON 样例、能力包结构规范、离线校验器与文字预览。只需要 Python 3.9+ 标准库。预览不运行 Agent、不联网、不产生声音、不写任务状态。提示音和语音确认需要使用支持 tone 和 ask 的 Agent，已通过软件模拟验证。</p></header>
 <h2>先在本地验证</h2><p>在本仓库目录执行。所有等待与确认都会明确标记为模拟，无需等待实际计时：</p>
 <pre>python3 check.py
 python3 -m unittest -v
@@ -10,7 +10,7 @@ python3 check.py capabilities/check-reminder.json --preview --value content=查�
 python3 check.py capabilities/tea-guide.json --preview --value tea=示例茶
 python3 check.py capabilities/stretch-guide.json --preview</pre>
 <p>校验成功退出码为 0；格式、重复 ID、无效模板或输入失败为 1，命令参数错误为 2。可传多个 JSON 文件校验；不传路径时检查本仓库全部样例。<code>--value</code> 只接受普通文字或数字，勿传入凭证或个人数据。</p>
-<h2>四个可导入样例</h2><table><thead><tr><th>能力包</th><th>执行顺序</th><th>输入</th></tr></thead><tbody>
+<h2>五个可导入样例</h2><table><thead><tr><th>能力包</th><th>执行顺序</th><th>输入</th></tr></thead><tbody>
 <tr><td><a href="capabilities/short-timer.json">short-timer · 十秒计时</a></td><td>计时 10 秒 → 结束提示</td><td>无；计时长度固定在包内</td></tr>
 <tr><td><a href="capabilities/check-reminder.json">check-reminder · 确认式提醒</a></td><td>提醒内容 → 等待确认 → 完成提示</td><td>content 必填；到期时间和重复规则在 Agent 计划中设置</td></tr>
 <tr><td><a href="capabilities/tea-guide.json">tea-guide · 泡茶流程</a></td><td>确认开始 → 计时 180 秒 → 确认出汤 → 完成提示</td><td>tea 有默认值，可覆盖</td></tr>
@@ -23,6 +23,8 @@ python3 check.py capabilities/stretch-guide.json --preview</pre>
 <tr><td>credential_ref</td><td>Agent 可保存的 <code>bitwarden:item:条目UUID</code> 引用；不是密钥，也不表示执行器会自动取用 Bitwarden。禁止非空默认值和文字模板引用。</td></tr>
 <tr><td>say</td><td>生成 speech 提示事件并继续；事件存在不等于已播放或送达。</td></tr>
 <tr><td>confirm</td><td>生成提示并停在 waiting，须由 Agent 接收确认后继续；离线预览自动模拟确认。</td></tr>
+<tr><td>tone</td><td>请求播放内置提示音。text 取 cue 或 alarm，单次播放。设备需要本地 PCM 播放。</td></tr>
+<tr><td>ask</td><td>播报确认问题并等待。对话中的下一次收听继续现有会话，后台启动的流程等待用户唤醒后确认。需要本机模型处理确认意图，也可在控制台手动确认。</td></tr>
 <tr><td>timer</td><td>生成提示并进入 timer，到期继续。seconds 必须为 1–604800 的整数；其他步骤可省略 seconds 或设为 0。</td></tr>
 </tbody></table>
 <p>校验器覆盖当前结构中的类型、长度、计时条件、额外属性以及字段唯一性、模板引用和凭证隔离。为兼容 Go Agent，字符串上限还按 UTF-8 字节检查（JSON Schema 本身以字符计数）。它只实现本仓库规范使用的关键字，不是通用 JSON Schema 引擎。Agent 的导入与运行校验仍是最终边界，离线通过不证明设备、管理权限或服务配置可用。</p>

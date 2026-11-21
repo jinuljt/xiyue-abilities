@@ -98,7 +98,7 @@ def preview(package, overrides):
     lines = [f"OFFLINE SIMULATION · {package['id']}@{package['version']} · no audio or saved state"]
     for step in package["steps"]:
         lines.append(f"{step['kind']}: " + PLACEHOLDER.sub(lambda match: values[match[1]], step["text"]))
-        if step["kind"] == "confirm":
+        if step["kind"] in {"confirm", "ask"}:
             lines.append("  [simulate user confirmation; continue]")
         elif step["kind"] == "timer":
             lines.append(f"  [simulate {step['seconds']} seconds elapsed; no real wait]")

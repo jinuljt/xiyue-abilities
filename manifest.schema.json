@@ -108,7 +108,9 @@
             "enum": [
               "say",
               "confirm",
-              "timer"
+              "timer",
+              "tone",
+              "ask"
             ]
           },
           "text": {
@@ -123,6 +125,18 @@
           }
         },
         "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {"const": "tone"}
+              }
+            },
+            "then": {
+              "properties": {
+                "text": {"enum": ["cue", "alarm"]}
+              }
+            }
+          },
           {
             "if": {
               "properties": {
@@ -153,5 +167,5 @@
       }
     }
   },
-  "description": "仅支持 say、confirm、timer；version 是能力内容版本，不是协议版本。启用状态、配置、权限和任务状态不属于包。Agent 额外按 UTF-8 字节限制字符串长度。"
+  "description": "支持 say、confirm、timer、tone 和 ask。version 是能力内容版本，不是协议版本。启用状态、配置、权限和任务状态不属于包。Agent 额外按 UTF-8 字节限制字符串长度。"
 }

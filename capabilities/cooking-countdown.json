@@ -1,0 +1,13 @@
+{
+  "id": "cooking-countdown",
+  "version": "0.1.0",
+  "name": "烹饪计时确认",
+  "description": "先播放提示音，确认准备就绪后，再开始计时。",
+  "fields": [],
+  "steps": [
+    {"kind": "tone", "text": "cue"},
+    {"kind": "ask", "text": "准备好开始三十分钟计时了吗？"},
+    {"kind": "timer", "text": "现在开始计时。", "seconds": 1800},
+    {"kind": "say", "text": "三十分钟到了，请检查锅里的情况。"}
+  ]
+}
