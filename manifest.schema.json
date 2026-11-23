@@ -12,6 +12,10 @@
     "steps"
   ],
   "properties": {
+    "menu": {
+      "type": "boolean",
+      "description": "启用后在控制台显示专属入口，用于运行、配置和查看该能力的流程。"
+    },
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9_-]{0,47}$"
