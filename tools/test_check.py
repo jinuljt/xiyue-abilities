@@ -7,7 +7,7 @@ import sys
 import tempfile
 import unittest
 
-import check
+from tools import check
 
 
 class PackageChecks(unittest.TestCase):
@@ -79,11 +79,11 @@ class PackageChecks(unittest.TestCase):
             path.write_text('{"id":"x","id":"y"}', encoding="utf-8")
             with self.assertRaises(ValueError):
                 check.load(path)
-            result = subprocess.run([sys.executable, str(check.ROOT / "check.py"), str(path)], capture_output=True, text=True)
+            result = subprocess.run([sys.executable, str(check.ROOT / "tools/check.py"), str(path)], capture_output=True, text=True)
             self.assertEqual(result.returncode, 1)
             self.assertIn("duplicate object key", result.stderr)
             path.write_text(json.dumps(self.package), encoding="utf-8")
-            result = subprocess.run([sys.executable, str(check.ROOT / "check.py"), str(path), str(path)], capture_output=True, text=True)
+            result = subprocess.run([sys.executable, str(check.ROOT / "tools/check.py"), str(path), str(path)], capture_output=True, text=True)
             self.assertEqual(result.returncode, 1)
             self.assertIn("duplicate package id", result.stderr)
 

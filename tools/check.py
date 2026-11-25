@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 import sys
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = json.loads((ROOT / "manifest.schema.json").read_text(encoding="utf-8"))
 PLACEHOLDER = re.compile(r"\{\{([a-z][a-z0-9_-]*)\}\}")
 
